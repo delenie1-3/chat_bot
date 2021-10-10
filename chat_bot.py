@@ -10,9 +10,8 @@ def get_text_messages(message):#слушатель
     elif message.text == '/help':
         bot.send_message(message.from_user.id, 'Напиши привет')
     else:
-        bot.send_message(message.from_user.id, 'Я тебя не понимаю. напиши /help.')'''
-
-bot.polling(non_stop=True, interval=0)#Запрос к телеграмму о сообщениях
+        bot.send_message(message.from_user.id, 'Я тебя не понимаю. напиши /help.')
+'''
 
 name = ''
 surname = ''
@@ -35,7 +34,7 @@ def get_name(message):#фамилия
 def get_surname(message):#возраст
     global surname
     surname = message.text
-    bot.send_message('Сколько тебе лет?')
+    bot.send_message(message.from_user.id, 'Сколько тебе лет?')
     bot.register_next_step_handler(message, get_age)
 
 def get_age(message):#проверка возраста
@@ -58,9 +57,7 @@ def callback_worker(call):#оброботка ввода с клавиатуры
     if call.data == 'yes':
         bot.send_message(call.message.chat.id, 'Запомнил')
     elif call.data == 'no':
-        bot.send_message(message.from_user.id, 'Как тебя зовут?')
-        bot.register_next_step_handler(message, get_name)
-        bot.send_message('Сколько тебе лет?')
-        bot.register_next_step_handler(message, get_age)
-        bot.send_message('Сколько тебе лет?')
-        bot.register_next_step_handler(message, get_age)
+        bot.send_message(call.message.chat.id, 'Повтори запрос /reg')
+
+
+bot.polling(non_stop=True, interval=0)#Запрос к телеграмму о сообщениях
