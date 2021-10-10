@@ -45,5 +45,9 @@ def get_age(message):#проверка возраста
         except Exception:
             bot.send_message(message.from_user.id, 'Укажи возраст цифрами')
     keyboard = types.InlineKeyboardMarkup()
-    key
-    bot.send_message(message.from_user.id, 'Тебе' + str(age) + ' лет, тебя зовут ' + name + ' ' + surname + '?')
+    key_yes = types.InlineKeyboardButton(text='Да', callback_data='yes')
+    keyboard.add(key_yes)
+    key_no = types.InlineKeyboardButton(text='Нет', callback_data='no')
+    keyboard.add(key_no)
+    question = 'Тебе' + str(age) + ' лет, тебя зовут ' + name + ' ' + surname + '?'
+    bot.send_message(message.from_user.id, text=question, reply_markup=keyboard)
